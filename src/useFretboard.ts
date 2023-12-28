@@ -1,27 +1,27 @@
 import { useMemo } from "react";
-import { Fret, Notes, OpenStringNotes } from "../utiils";
+import { Fret, Notes } from "./utiils";
+import { useRecoilState } from "recoil";
+import { gameSettings } from "./stores";
 
-export function useFretboard({
-  startFret = 0,
-  endFret = 12,
-  numStrings = 6,
-  tuning = OpenStringNotes,
-}): { fretboard: Fret[][] } {
+export function useFretboard(): { fretboard: Fret[][] } {
+  const [settings] = useRecoilState(gameSettings);
+
+  const { frets, strings, tuning, startingFret } = settings;
+
   const fretboard = useMemo(() => {
-    const numFrets = endFret - startFret;
-    const neck = buildNeck({ numFrets, numStrings });
+    const neck = buildNeck({ numFrets: frets, numStrings: strings });
     return neck.map((string, stringIndex) => {
       const startingNote = tuning[stringIndex];
       const startingNoteIndex = Notes.indexOf(startingNote);
       return string.map((fret, fretIndex) => {
         return {
-          fret: fretIndex + startFret,
+          fret: fretIndex + startingFret,
           string: stringIndex,
           note: Notes[(startingNoteIndex + fretIndex) % Notes.length],
         };
       });
     });
-  }, [numStrings, tuning, startFret, endFret]);
+  }, [strings, frets, tuning, startingFret]);
 
   return { fretboard };
 }

@@ -33,3 +33,7 @@ export const Notes: Note[] = [
 ];
 
 export const OpenStringNotes: Note[] = ["E", "B", "G", "D", "A", "E"];
+
+export function getRandomNote(notes: Note[] = Notes) {
+  return notes[Math.floor(Math.random() * Notes.length)];
+}

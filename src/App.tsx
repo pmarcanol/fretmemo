@@ -1,10 +1,29 @@
 import "./App.css";
 import { Fretboard } from "./fretboard/Fretboard";
+import { useRecoilState } from "recoil";
+import { Settings } from "./Settings";
+import { gameSettings } from "./stores";
+import { Score } from "./Score";
+import { useGame } from "./useGame";
 
 function App() {
+  const [settings, setSettings] = useRecoilState(gameSettings);
+  const { resetGame } = useGame();
   return (
     <>
-      <Fretboard />
+      <h1>React Fretboard</h1>
+      <button
+        onClick={() =>
+          setSettings((prev) => ({ ...prev, showSettings: !prev.showSettings }))
+        }
+      >
+        Settings
+      </button>
+      {settings.showSettings && <Settings />}
+
+      <Fretboard startFret={0} endFret={settings.frets} />
+      <Score />
+      <button onClick={resetGame}>Reset</button>
     </>
   );
 }

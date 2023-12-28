@@ -1,15 +1,25 @@
-import { useFretboard } from "./useFretboard";
+import { useFretboard } from "../useFretboard";
 import "./fretboard.css";
 import { Fret } from "../utiils";
+import { useRecoilState } from "recoil";
+import clsx from "clsx";
+import { gameSettings } from "../stores";
+import { useGame } from "../useGame";
+import { useEffect } from "react";
 
 export function Fretboard() {
-  const { fretboard } = useFretboard({});
+  const { fretboard } = useFretboard();
+  const [settings] = useRecoilState(gameSettings);
 
-  console.log(fretboard);
+  const { frets, strings } = settings;
+  useEffect(() => {
+    document.documentElement.style.setProperty("--fretboard-size", `${frets}`);
+  }, [frets]);
+
   return (
     <div className="fretboard">
-      <Strings strings={6} fretboard={fretboard} />
-      <Frets frets={12} />
+      <Strings strings={strings} fretboard={fretboard} />
+      <Frets frets={frets + 1} />
     </div>
   );
 }
@@ -46,12 +56,16 @@ function String({ notes }: { notes: Fret[] }) {
 }
 
 function FretNote({ fretNote }: { fretNote: Fret }) {
+  const [settings] = useRecoilState(gameSettings);
+  const { onAnswer } = useGame();
+
   return (
-    <div className="note">
-      <button onClick={() => console.log(fretNote)}>{fretNote.note}</button>
+    <div className={clsx({ note: true, hidden: !settings.showNotes })}>
+      <button onClick={() => onAnswer(fretNote)}>{fretNote.note}</button>
     </div>
   );
 }
+
 function Frets({ frets }: { frets: number }) {
   return (
     <div className="fretboard-container">
