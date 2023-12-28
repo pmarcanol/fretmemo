@@ -8,7 +8,7 @@ export const gameSettings = atom({
     frets: 6,
     strings: 6,
     tuning: OpenStringNotes,
-    showNotes: true,
+    showNotes: false,
     showSettings: false,
   },
 });

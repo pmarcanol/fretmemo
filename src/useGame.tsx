@@ -18,7 +18,6 @@ export function useGame() {
   }
 
   function onAnswer(fret: Fret) {
-    console.log(getAvailableNotes());
     if (game.currentQuestion === fret.note) {
       setGame((prev) => ({
         ...prev,

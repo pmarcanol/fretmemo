@@ -1,6 +1,7 @@
 :root {
   --fretboard-size: 12;
   --string-number: 6;
+  --fret-width: 8vw;
 }
 
 .fretboard {
@@ -9,7 +10,7 @@
   display: grid;
   grid-template-rows: repeat(var(--string-number), 1fr);
   grid-template-columns: repeat(var(--fretboard-size), 1fr);
-  width: 100vw;
+  /* width: calc(var(--fret-width) * var(--fretboard-size)); */
 }
 
 .strings-container {
@@ -57,6 +58,54 @@
   background-color: transparent;
   border-right: 1px solid red;
   grid-template-rows: repeat(1, 1fr);
+  position: relative;
+}
+
+.fret-element:nth-of-type(3),
+.fret-element:nth-of-type(5),
+.fret-element:nth-of-type(7),
+.fret-element:nth-of-type(9) {
+  &::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: calc(50% - 5px);
+    left: calc(50% - 5px);
+    border-radius: 100%;
+    background-color: white;
+    opacity: 0.7;
+    z-index: 1;
+  }
+}
+
+.fret-element:nth-of-type(12) {
+  &::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: calc(16% - 5px);
+    left: calc(50% - 5px);
+    border-radius: 100%;
+    background-color: white;
+    opacity: 0.7;
+    z-index: 1;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: calc(83% - 5px);
+    left: calc(50% - 5px);
+    border-radius: 100%;
+    background-color: white;
+    opacity: 0.7;
+    z-index: 1;
+
+  }
 }
 
 .note {

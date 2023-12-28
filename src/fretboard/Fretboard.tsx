@@ -60,8 +60,13 @@ function FretNote({ fretNote }: { fretNote: Fret }) {
   const { onAnswer } = useGame();
 
   return (
-    <div className={clsx({ note: true, hidden: !settings.showNotes })}>
-      <button onClick={() => onAnswer(fretNote)}>{fretNote.note}</button>
+    <div className={clsx({ note: true })}>
+      <button
+        className={clsx({ hidden: !settings.showNotes })}
+        onClick={() => onAnswer(fretNote)}
+      >
+        {fretNote.note}
+      </button>
     </div>
   );
 }

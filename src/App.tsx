@@ -10,7 +10,7 @@ function App() {
   const [settings, setSettings] = useRecoilState(gameSettings);
   const { resetGame } = useGame();
   return (
-    <>
+    <div className="app">
       <h1>React Fretboard</h1>
       <button
         onClick={() =>
@@ -21,10 +21,10 @@ function App() {
       </button>
       {settings.showSettings && <Settings />}
 
-      <Fretboard startFret={0} endFret={settings.frets} />
+      <Fretboard />
       <Score />
       <button onClick={resetGame}>Reset</button>
-    </>
+    </div>
   );
 }
 
