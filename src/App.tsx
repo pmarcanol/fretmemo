@@ -5,6 +5,7 @@ import { Settings } from "./Settings";
 import { gameSettings } from "./stores";
 import { Score } from "./Score";
 import { useGame } from "./useGame";
+import { GameModeSelect } from "./GameModeSelect";
 
 function App() {
   const [settings, setSettings] = useRecoilState(gameSettings);
@@ -23,6 +24,7 @@ function App() {
 
       <Fretboard />
       <Score />
+      <GameModeSelect />
       <button onClick={resetGame}>Reset</button>
     </div>
   );

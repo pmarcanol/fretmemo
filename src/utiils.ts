@@ -25,6 +25,7 @@ export const Notes: Note[] = [
   "C",
   "C#",
   "D",
+  "D#",
   "E",
   "F",
   "F#",
