@@ -14,7 +14,7 @@ function App() {
           <Fretboard />
           <ModeScore />
         </div>
-        <div className="flex flex-row justify-between ali items-center space-y-2">
+        <div className="flex flex-row justify-between items-start">
           <Score />
           <GameModeSelect />
         </div>

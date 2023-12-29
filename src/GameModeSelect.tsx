@@ -7,9 +7,9 @@ export function GameModeSelect() {
   const { onModeChange } = useGame();
 
   return (
-    <div>
-      <h2 className="text-3xl font-bold mb-4"> Game Mode</h2>
-      <fieldset className="gap-12">
+    <div className="flex flex-col justify-between mt-0">
+      <h2 className="text-3xl font-bold mb-6 important:mt-0"> Game Mode</h2>
+      <fieldset >
         <input
           type="radio"
           id="oneNoteMode"
