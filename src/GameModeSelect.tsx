@@ -8,7 +8,8 @@ export function GameModeSelect() {
 
   return (
     <div>
-      <fieldset>
+      <h2 className="text-3xl font-bold mb-4"> Game Mode</h2>
+      <fieldset className="gap-12">
         <input
           type="radio"
           id="oneNoteMode"
@@ -19,18 +20,23 @@ export function GameModeSelect() {
             onModeChange("ONE_NOTE");
           }}
         />
-        <label htmlFor="oneNoteMode">One Note</label>
+        <label htmlFor="oneNoteMode" className="ml-1">
+          One Note
+        </label>
         <input
           type="radio"
           id="allNotesMode"
           name="gameMode"
           value="allNotesMode"
+          className="ml-4"
           checked={modeSettings.gameMode === "ALL_NOTES"}
           onChange={() => {
             onModeChange("ALL_NOTES");
           }}
         />
-        <label htmlFor="allNotesMode">All Notes</label>
+        <label htmlFor="allNotesMode" className="ml-1">
+          All Notes
+        </label>
       </fieldset>
     </div>
   );

@@ -1,31 +1,24 @@
 import "./App.css";
 import { Fretboard } from "./fretboard/Fretboard";
-import { useRecoilState } from "recoil";
-import { Settings } from "./Settings";
-import { gameSettings } from "./stores";
 import { Score } from "./Score";
-import { useGame } from "./useGame";
 import { GameModeSelect } from "./GameModeSelect";
+import Header from "./Header";
+import { ModeScore } from "./ModeScore";
 
 function App() {
-  const [settings, setSettings] = useRecoilState(gameSettings);
-  const { resetGame } = useGame();
   return (
-    <div className="app">
-      <h1>React Fretboard</h1>
-      <button
-        onClick={() =>
-          setSettings((prev) => ({ ...prev, showSettings: !prev.showSettings }))
-        }
-      >
-        Settings
-      </button>
-      {settings.showSettings && <Settings />}
-
-      <Fretboard />
-      <Score />
-      <GameModeSelect />
-      <button onClick={resetGame}>Reset</button>
+    <div className="min-w-screen min-h-screen bg-gradient-to-b from-teal-800 to-teal-900 p-8">
+      <Header />
+      <div className="text-white  flex flex-col justify-evenly">
+        <div className="py-24">
+          <Fretboard />
+          <ModeScore />
+        </div>
+        <div className="flex flex-row justify-between ali items-center space-y-2">
+          <Score />
+          <GameModeSelect />
+        </div>
+      </div>
     </div>
   );
 }

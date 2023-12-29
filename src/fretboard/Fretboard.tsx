@@ -1,11 +1,12 @@
 import { useFretboard } from "../useFretboard";
 import "./fretboard.css";
-import { Fret } from "../utiils";
+import { Fret, Note } from "../utiils";
 import { useRecoilState } from "recoil";
 import clsx from "clsx";
-import { gameSettings } from "../stores";
+import { gameModeSettings, gameSettings, gameState } from "../stores";
 import { useGame } from "../useGame";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { CheckIcon, CrossIcon } from "../Score";
 
 export function Fretboard() {
   const { fretboard } = useFretboard();
@@ -60,16 +61,50 @@ function String({ notes }: { notes: Fret[] }) {
 
 function FretNote({ fretNote }: { fretNote: Fret }) {
   const [settings] = useRecoilState(gameSettings);
+  const [game] = useRecoilState(gameState);
+  const [modeSettings] = useRecoilState(gameModeSettings);
+  const [clicked, setClicked] = useState(false);
+  const [prev, setPrev] = useState<Note>("E");
   const { onAnswer } = useGame();
 
+  const isCorrect = fretNote.note == prev;
+  const hasBeenClicked = modeSettings.settings.pressedNotes.includes(fretNote);
+  useEffect(() => {
+    if (clicked) {
+      setTimeout(() => [setClicked(false)], 1000);
+    }
+  }, [clicked]);
+
   return (
-    <div className={clsx({ note: true })}>
+    <div className="note flex w-full justify-center align-middle">
       <button
-        className={clsx({ hidden: !settings.showNotes })}
-        onClick={() => onAnswer(fretNote)}
+        className={clsx({ "opacity-0": !settings.showNotes })}
+        onClick={() => {
+          if (hasBeenClicked) return;
+          onAnswer(fretNote);
+          setPrev(game.currentQuestion);
+          setClicked(true);
+        }}
       >
         {fretNote.note}
       </button>
+      {(clicked || hasBeenClicked) && (
+        <div
+          className={clsx(
+            {
+              "animate-bounce-once": clicked,
+            },
+            "absolute rounded-full bg-white z-10 px-2 py-1 "
+          )}
+        >
+          {isCorrect ? (
+            <CheckIcon className="inline-block mr-2 text-green-500" />
+          ) : (
+            <CrossIcon className="inline-block mr-2 text-red-500" />
+          )}
+          <span className="text-black">{fretNote.note}</span>
+        </div>
+      )}
     </div>
   );
 }

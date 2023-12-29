@@ -52,6 +52,7 @@ export type GameModeSettings = {
       };
     }
 );
+
 export const gameModeSettings = atom<GameModeSettings>({
   key: "gameModeSettings",
   default: {

@@ -22,7 +22,10 @@ export function useGame() {
   );
 
   function resetGame() {
-    setGame(defaultGameState);
+    setGame({
+      ...defaultGameState,
+      currentQuestion: getRandomNote(availableNotes),
+    });
   }
 
   function oneNoteMode(fret: Fret) {
