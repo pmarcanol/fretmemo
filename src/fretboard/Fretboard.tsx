@@ -13,13 +13,16 @@ export function Fretboard() {
 
   const { frets, strings } = settings;
   useEffect(() => {
-    document.documentElement.style.setProperty("--fretboard-size", `${frets}`);
+    document.documentElement.style.setProperty(
+      "--fretboard-size",
+      `${frets - 1}`
+    );
   }, [frets]);
 
   return (
     <div className="fretboard">
       <Strings strings={strings} fretboard={fretboard} />
-      <Frets frets={frets + 1} />
+      <Frets frets={frets} />
     </div>
   );
 }
