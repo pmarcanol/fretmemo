@@ -6,7 +6,7 @@
 .fretboard {
   background-color: #9b6f52;
   display: grid;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .strings-container {
