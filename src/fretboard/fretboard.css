@@ -21,7 +21,8 @@
 .string-container {
   display: grid;
   position: relative;
-  grid-template-columns: 60px repeat(var(--fretboard-size), minmax(50px, 1fr));
+  grid-template-columns: 60px repeat(var(--fretboard-size), minmax(60px, 1fr));
+  height: min(5vh, 30px);
 }
 
 .string {
